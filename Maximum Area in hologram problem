@@ -1,0 +1,73 @@
+
+import java.util.Stack;
+public class maxareainhologram {  
+
+    public static int[] prevsmaller(int[] array){
+        Stack<Integer> s= new Stack<>();
+        int n=array.length;
+        int [] ps=new int[n];
+
+        for(int i=0;i<n;i++){
+            while(!s.isEmpty()&& array[s.peek()]>=array[i])
+            {
+                s.pop();
+            }
+
+
+            if(s.empty()){
+                ps[i]=-1;
+            }
+            else{
+                ps[i]=s.peek();
+            }
+            s.push(i);
+
+
+        }  
+        return ps;
+
+    }
+
+    public static int[] nextsmaller(int[] array){
+        Stack<Integer> s= new Stack<>();
+        int n=array.length;
+        int [] ns=new int[n];
+
+        for(int i=n-1;i>=0;i--){
+            while(!s.isEmpty()&& array[s.peek()]>=array[i])
+            {
+                s.pop();
+            }
+
+
+            if(s.empty()){
+                ns[i]=n;
+            }
+            else{
+                ns[i]=s.peek();
+            }
+            s.push(i);
+
+
+        }  
+        return ns;
+
+    }
+    public static void main(String[] args) {
+        int [] arr={2,1,5,6,2,3};
+        int[] ns=nextsmaller(arr);
+        int []ps=prevsmaller(arr);
+        int maxarea=Integer.MIN_VALUE;
+
+
+        for(int i=0;i<arr.length;i++){
+            int h=arr[i];
+            int w=ns[i]-ps[i]-1;
+            maxarea=Math.max(maxarea, h*w);
+        }
+        System.out.println(maxarea);
+        
+       
+    }
+    
+}
