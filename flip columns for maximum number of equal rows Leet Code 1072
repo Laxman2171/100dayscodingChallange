@@ -1,0 +1,27 @@
+class Solution {
+    public int maxEqualRowsAfterFlips(int[][] matrix) {
+        int n=matrix[0].length;
+        int maxrow=0;
+
+
+        for(int [] currrow:matrix){
+            int [] inverted=new int[n];
+            int count=0;
+
+            for(int col=0;col<n;col++){
+                inverted[col] = currrow[col]==0 ? 1:0;
+            }
+            for(int [] row:matrix){
+                if(Arrays.equals(row,currrow)||Arrays.equals(row,inverted)){
+                    count++;
+                }
+            }  
+
+            maxrow=Math.max(maxrow,count);
+
+
+        }
+        
+        return maxrow;
+    }
+}
